@@ -242,11 +242,13 @@ function init() {
       if (player.vy < -7 && player.vy > -15) player.dir = "right_land";
     }
 
+    var gamma = 0;
+
     function DeviceOrientationHandler(event){
       player.isMovingRight = false;
       player.isMovingLeft = false;
-      var gamma = event.gamma;
-
+      
+      gamma = event.gamma;
       //$('#test').html(event.gamma.toSting() + " --- " + event.beta.toString());
       if(gamma != null){
         if( gamma > 0 ){
@@ -298,18 +300,18 @@ function init() {
     //Accelerations produces when the user hold the keys
     if (player.isMovingLeft === true) {
       player.x += player.vx;
-      player.vx -= 0.15;
+      player.vx -= Math.abs(gamma) * 0.15;
     } else {
       player.x += player.vx;
-      if (player.vx < 0) player.vx += 0.1;
+      if (player.vx < 0) player.vx += 0.1 * Math.abs(gamma);
     }
 
     if (player.isMovingRight === true) {
       player.x += player.vx;
-      player.vx += 0.15;
+      player.vx += 0.15 * Math.abs(gamma);
     } else {
       player.x += player.vx;
-      if (player.vx > 0) player.vx -= 0.1;
+      if (player.vx > 0) player.vx -= 0.1 * Math.abs(gamma);
     }
 
     // Speed limits!
