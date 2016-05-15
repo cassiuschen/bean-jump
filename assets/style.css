@@ -135,7 +135,7 @@ img {display: none}
 .button.restart {
   background-image: url(img/btn-restart.png);
   width: 60%;
-  bottom: calc(10% + 76px);
+  bottom: 16%;
   margin-left: -30%;
 }
 .button.story {
