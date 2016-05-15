@@ -27,7 +27,7 @@
           <div class="arrow"></div>
           <img class="share-letters" src="img/share.png">
         </div>
-        <div class="rank-page" id="rankPage">
+        <div class="rank-page" id="rankPage" style="display: none;">
             <img class="title">
             <div class="lists">
               <div class="list">
@@ -65,15 +65,11 @@
     <script src="js/buttons.js"></script>
     <script src="js/main.js"></script>
     <script type="text/javascript">
-      if($('#rankPage').css("display") == "block") {
-        $('#rankPage').click(function(){
-          $('#rankPage').css("display", "none");
-        });
-      }
-      if($('#rankPage').css("display") == "none") {
-        $('.button.rank').click(function(){
-          $('#rankPage').css("display", "block");
-        });
+      $('.button.rank').click(function(){
+        $('#rankPage').css("display", "block");
+      });
+      $('#rankPage').click(function(){
+        $('#rankPage').css("display", "none");
       }
     </script>
   </body>

@@ -1,3 +1,9 @@
+if(window.DeviceOrientationEvent){
+  window.addEventListener('deviceorientation', DeviceOrientationHandler, true);
+}else{
+  alert("您的浏览器不支持DeviceOrientation");
+}
+
 // RequestAnimFrame: a browser API for getting smooth animations
 window.requestAnimFrame = (function() {
   return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
@@ -240,6 +246,24 @@ function init() {
     } else if (dir == "right") {
       player.dir = "right";
       if (player.vy < -7 && player.vy > -15) player.dir = "right_land";
+    }
+
+    function DeviceOrientationHandler(event){
+      var alpha = event.alpha,
+          beta = event.beta,
+          gamma = event.gamma;
+
+      if(gamma != null){
+          if( gamma > 0 ){
+              dir = "right";
+              player.isMovingLeft = true;
+          }else{
+              dir = "left";
+              player.isMovingRight = true;
+          }
+      }else{
+          dataContainerOrientation.innerHTML = "当前浏览器不支持DeviceOrientation";
+      }
     }
 
     //Adding keyboard controls
