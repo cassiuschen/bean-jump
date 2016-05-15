@@ -238,7 +238,6 @@ function DeviceOrientationHandler(event){
     }
   }
 }
-window.addEventListener("deviceorientation", DeviceOrientationHandler, true);
 
 function init() {
   //Variables for the game
@@ -246,6 +245,9 @@ function init() {
     jumpCount = 0;
   
   firstRun = false;
+
+
+  window.addEventListener("deviceorientation", DeviceOrientationHandler, true);
 
   //Function for clearing canvas in each consecutive frame
 
