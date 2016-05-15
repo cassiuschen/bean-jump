@@ -247,18 +247,21 @@ function init() {
       player.isMovingLeft = false;
       var gamma = event.gamma;
 
-      $('#test').html(event.gamma.toSting() + " --- " + event.beta.toString());
+      //$('#test').html(event.gamma.toSting() + " --- " + event.beta.toString());
       if(gamma != null){
         if( gamma > 0 ){
           dir = "right";
           player.isMovingRight = true;
-        }else{
+        } else if( gamma == 0) {
+          player.isMovingRight = false;
+          player.isMovingLeft = false;
+        } else{
           dir = "left";
           player.isMovingLeft = true;
         }
       }
     }
-    window.addEventListener("deviceorientation", DeviceOrientationHandler);
+    window.addEventListener("deviceorientation", DeviceOrientationHandler, true);
 
     //Adding keyboard controls
     document.onkeydown = function(e) {
