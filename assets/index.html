@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <title>A Little Bean</title>
     <link rel="stylesheet" href="style.css">
-
-    <script src="/assets/js/prefixfree.min.js"></script>
   </head>
   <body>
     <div class="container">
@@ -27,17 +25,28 @@
       <div id="gameOverMenu">
         <div class="share-page" id="sharePage" style="display: none;">
           <div class="arrow"></div>
-          <div class="share-letters"></div>
+          <img class="share-letters" src="img/share.png">
+        </div>
+        <div class="rank-page" id="rankPage">
+            <img class="title">
+            <div class="lists">
+              <div class="list">
+                <img class="avator" src="img/avators/1.png">
+                <p class="name"></p>
+                <p class="score"></p>
+              </div>
+            </div>
         </div>
         <div class="end-bg">
           <div class="end-win"></div>
         </div>
         <h1>game over!</h1>
         <h3 id="go_score">you scored 0 points</h3>
-
+        <img class="coupon" src="img/coupon.png">
         <a class="button restart" href="javascript:reset()"></a>
         <a class="button story"></a>
-        <a class="button share"></a>
+        <a class="button share" style="display: none;"></a>
+        <a class="button rank"></a>
         <a id="tweetBtn" style="display: none;">Tweet score</a>
 
         <a id="fbBtn" style="display: none;">Post on FB</a>
@@ -52,8 +61,20 @@
       </div>
 
     </div>
-    <script src="js/jquery.pin.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/jquery-2.2.3.min.js"></script>
     <script src="js/buttons.js"></script>
+    <script src="js/main.js"></script>
+    <script type="text/javascript">
+      if($('#rankPage').css("display") == "block") {
+        $('#rankPage').click(function(){
+          $('#rankPage').css("display", "none");
+        });
+      }
+      if($('#rankPage').css("display") == "none") {
+        $('.button.rank').click(function(){
+          $('#rankPage').css("display", "block");
+        });
+      }
+    </script>
   </body>
 </html>
