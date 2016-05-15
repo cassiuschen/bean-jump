@@ -20,6 +20,7 @@ var platforms = [],
   image = document.getElementById("sprite"),
   player, platformCount = 10,
   position = 0,
+  gamma = 0;
   gravity = 0.2,
   animloop,
   flag = 0,
@@ -218,6 +219,27 @@ var spring = function() {
 
 var Spring = new spring();
 
+function DeviceOrientationHandler(event){
+  player.isMovingRight = false;
+  player.isMovingLeft = false;
+  
+  gamma = event.gamma;
+  //$('#test').html(event.gamma.toSting() + " --- " + event.beta.toString());
+  if(gamma != null){
+    if( gamma > 0 ){
+      dir = "right";
+      player.isMovingRight = true;
+    } else if( gamma == 0) {
+      player.isMovingRight = false;
+      player.isMovingLeft = false;
+    } else{
+      dir = "left";
+      player.isMovingLeft = true;
+    }
+  }
+}
+window.addEventListener("deviceorientation", DeviceOrientationHandler, true);
+
 function init() {
   //Variables for the game
   var dir = "left",
@@ -242,28 +264,8 @@ function init() {
       if (player.vy < -7 && player.vy > -15) player.dir = "right_land";
     }
 
-    var gamma = 0;
 
-    function DeviceOrientationHandler(event){
-      player.isMovingRight = false;
-      player.isMovingLeft = false;
-      
-      gamma = event.gamma;
-      //$('#test').html(event.gamma.toSting() + " --- " + event.beta.toString());
-      if(gamma != null){
-        if( gamma > 0 ){
-          dir = "right";
-          player.isMovingRight = true;
-        } else if( gamma == 0) {
-          player.isMovingRight = false;
-          player.isMovingLeft = false;
-        } else{
-          dir = "left";
-          player.isMovingLeft = true;
-        }
-      }
-    }
-    window.addEventListener("deviceorientation", DeviceOrientationHandler, true);
+    
 
     //Adding keyboard controls
     document.onkeydown = function(e) {
@@ -450,7 +452,7 @@ function init() {
 
   function updateScore() {
     var scoreText = document.getElementById("score");
-    scoreText.innerHTML = score;
+    scoreText.innerHTML = score + " Gamma:" + gamma + " vx:" + player.vx;
   }
 
   function gameOver() {
