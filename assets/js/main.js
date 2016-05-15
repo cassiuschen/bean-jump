@@ -247,6 +247,7 @@ function init() {
       player.isMovingLeft = false;
       var gamma = event.gamma;
 
+      $('#test').html(event.gamma.toSting() + " --- " + event.beta.toString());
       if(gamma != null){
         if( gamma > 0 ){
           dir = "right";
