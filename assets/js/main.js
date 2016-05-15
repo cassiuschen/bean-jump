@@ -561,10 +561,10 @@ function playerJump() {
     if(gamma != null){
       if( gamma > 0 ){
         dir = "right";
-        player.isMovingRight = true;
+        
       }else{
         dir = "left";
-        player.isMovingLeft = true;
+        
       }
     }
   }
