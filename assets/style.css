@@ -135,19 +135,19 @@ img {display: none}
 .button.restart {
   background-image: url(img/btn-restart.png);
   width: 60%;
-  bottom: 140px;
+  bottom: 70px;
   margin-left: -30%;
 }
 .button.story {
   background-image: url(img/btn-story.png);
   width: 40%;
-  bottom: 90px;
+  bottom: 70px;
   margin-left: -20%;
 }
 .button.rank {
   background-image: url(img/btn-rank.png);
   width: 30%;
-  bottom: 40px;
+  bottom: 20px;
   margin-left: -15%;
 }
 .button.share {
