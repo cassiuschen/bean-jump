@@ -257,7 +257,7 @@ function init() {
         }
       }
     }
-    window.addEventListener("deviceorientation", DeviceOrientationHandler, true);
+    window.addEventListener("deviceorientation", DeviceOrientationHandler);
 
     //Adding keyboard controls
     document.onkeydown = function(e) {
