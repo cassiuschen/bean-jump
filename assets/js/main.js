@@ -20,7 +20,7 @@ var platforms = [],
   image = document.getElementById("sprite"),
   player, platformCount = 10,
   position = 0,
-  gamma = 0;
+  gamma = 0,
   gravity = 0.2,
   animloop,
   flag = 0,
@@ -238,6 +238,7 @@ function DeviceOrientationHandler(event){
     }
   }
 }
+window.addEventListener("deviceorientation", DeviceOrientationHandler, true);
 
 function init() {
   //Variables for the game
@@ -247,7 +248,6 @@ function init() {
   firstRun = false;
 
 
-  window.addEventListener("deviceorientation", DeviceOrientationHandler, true);
 
   //Function for clearing canvas in each consecutive frame
 
