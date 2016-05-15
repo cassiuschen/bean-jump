@@ -454,7 +454,7 @@ function init() {
 
   function updateScore() {
     var scoreText = document.getElementById("score");
-    scoreText.innerHTML = score + " Gamma:" + gamma + " vx:" + player.vx;
+    scoreText.innerHTML = score;
   }
 
   function gameOver() {
