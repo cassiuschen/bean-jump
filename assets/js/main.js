@@ -242,22 +242,6 @@ function init() {
       if (player.vy < -7 && player.vy > -15) player.dir = "right_land";
     }
 
-    function DeviceOrientationHandler(event){
-      var alpha = event.alpha,
-        beta = event.beta,
-        gamma = event.gamma;
-
-      if(gamma != null){
-        if( gamma > 0 ){
-          dir = "right";
-          player.isMovingRight = true;
-        }else{
-          dir = "left";
-          player.isMovingLeft = true;
-        }
-      }
-    }
-    window.addEventListener("deviceorientation", DeviceOrientationHandler, true);
     //Adding keyboard controls
     document.onkeydown = function(e) {
       var key = e.keyCode;
@@ -571,9 +555,22 @@ function playerJump() {
     player.dir = "right";
     if (player.vy < -7 && player.vy > -15) player.dir = "right_land";
   }
+  function DeviceOrientationHandler(event){
+    var gamma = event.gamma;
 
+    if(gamma != null){
+      if( gamma > 0 ){
+        dir = "right";
+        player.isMovingRight = true;
+      }else{
+        dir = "left";
+        player.isMovingLeft = true;
+      }
+    }
+  }
+  window.addEventListener("deviceorientation", DeviceOrientationHandler, true);
   //Adding keyboard controls
-  document.onkeydown = function(e) {
+  document.onkeydown = function(e) { 
     var key = e.keyCode;
 
     if (key == 37) {
