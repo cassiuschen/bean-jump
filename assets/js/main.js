@@ -6,6 +6,12 @@ window.requestAnimFrame = (function() {
   };
 })();
 
+//跳板声音
+var audio = document.getElementById("audio");
+var playSound = function(sound_src) {
+  audio.play();
+}
+
 var canvas = document.getElementById('canvas'),
   ctx = canvas.getContext('2d');
 
@@ -435,10 +441,12 @@ function init() {
           return;
         } else if (p.type == 4 && p.state === 0) {
           player.jump();
+          playSound("souonds/jump.mp3");
           p.state = 1;
         } else if (p.flag == 1) return;
         else {
           player.jump();
+          playSound("souonds/jump.mp3");
         }
       }
     });
@@ -584,19 +592,25 @@ function playerJump() {
   }
 
   function DeviceOrientationHandler(event){
-    var gamma = event.gamma;
-
+    player.isMovingRight = false;
+    player.isMovingLeft = false;
+    
+    gamma = event.gamma;
+    //$('#test').html(event.gamma.toSting() + " --- " + event.beta.toString());
     if(gamma != null){
       if( gamma > 0 ){
         dir = "right";
         player.isMovingRight = true;
-      }else{
+      } else if( gamma == 0) {
+        player.isMovingRight = false;
+        player.isMovingLeft = false;
+      } else{
         dir = "left";
         player.isMovingLeft = true;
       }
     }
   }
-  window.addEventListener("deviceorientation", DeviceOrientationHandler, true);
+window.addEventListener("deviceorientation", DeviceOrientationHandler, true);
   //Adding keyboard controls
   document.onkeydown = function(e) { 
     var key = e.keyCode;
