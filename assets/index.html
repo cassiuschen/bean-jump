@@ -8,7 +8,11 @@
   </head>
   <body>
     <!--div id="test" style="position: fixed;left: 30%;top: 20%;font-size: 24px;color: red;"></div-->
-    <audio id="audio" src="sounds/jump_1.wav"></audio>
+    <audio id="jump" src="/sounds/jump_1.mp3" preload="auto"></audio>
+    <audio id="jumpH" src="/sounds/jump_2.mp3" preload="auto"></audio>
+    <audio src="/sounds/drop.mp3" id="drop" preload="auto"></audio>
+    <audio src="/sounds/jump_3.mp3" id="crash" preload="auto"></audio>
+    <div id="tmpAus"></div>
     <div class="container"> 
 
       <canvas id="canvas">
@@ -35,23 +39,19 @@
         <div class="end-bg">
           <div class="end-win"></div>
         </div>
-        <h1>game over!</h1>
-        <h3 id="go_score">you scored 0 points</h3>
+        <h3 id="go_score">不是吧！你得到了 0 分！</h3>
         <img class="coupon" src="img/coupon.png">
         <a class="button restart" href="javascript:reset()"></a>
         <a class="button story"></a>
         <a class="button share" style="display: none;"></a>
         <a class="button rank"></a>
-        <a id="tweetBtn" style="display: none;">Tweet score</a>
-
-        <a id="fbBtn" style="display: none;">Post on FB</a>
       </div>
 
       <!-- Preloading image ;) -->
       <img id="sprite" src="img/bean.png"/>
 
       <div id="scoreBoard">
-        <p id="score-name">Score：</p>
+        <p id="score-name">成长值：</p>
         <p id="score">0</p>
       </div>
 
