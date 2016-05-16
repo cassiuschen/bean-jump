@@ -5,20 +5,22 @@ window.requestAnimFrame = (function() {
     window.setTimeout(callback, 1000 / 60);
   };
 })();
-
+window.inGame = false;
 //跳板声音
 function playSound(str) {
-  var collection = document.getElementById('tmpAus');
-  //$(collection).children().remove();
-  var au = document.getElementById(str);
-  var tmpAu = au.cloneNode(true);
-  
-  tmpAu.id = str + Math.random();
-  collection.appendChild(tmpAu);
-  tmpAu.play();
-  $(tmpAu).on('ended', function(){$(this).remove();});
+  if(window.inGame){
+    var collection = document.getElementById('tmpAus');
+    //$(collection).children().remove();
+    var au = document.getElementById(str);
+    var tmpAu = au.cloneNode(true);
+    tmpAu.id = str + Math.random();
+    collection.appendChild(tmpAu);
+    tmpAu.play();
+    $(tmpAu).on('ended', function(){$(this).remove();});
+  }
 }
-
+var dropAu = document.getElementById('drop');
+//$(dropAu).on('ended', function(){$(this).remove();});
 var canvas = document.getElementById('canvas'),
   ctx = canvas.getContext('2d');
 
@@ -167,10 +169,11 @@ function Platform() {
   //We can't have two consecutive breakable platforms otherwise it will be impossible to reach another platform sometimes!
   if (this.type == 3 && broken < 1) {
     broken++;
+    playSound("crash");
   } else if (this.type == 3 && broken >= 1) {
     this.type = 1;
     broken = 0;
-    playSound("crash");
+    
   }
 
   this.moved = 0;
@@ -256,8 +259,10 @@ function DeviceOrientationHandler(event){
 }
 window.addEventListener("deviceorientation", DeviceOrientationHandler, true);
 
+
 function init() {
   //Variables for the game
+  window.inGame = true;
   var dir = "left",
     jumpCount = 0;
   
@@ -475,7 +480,7 @@ function init() {
   }
 
   function gameOver() {
-    playSound('drop');
+    if (dropAu) dropAu.play();
     platforms.forEach(function(p, i) {
       p.y -= 12;
     });
@@ -489,7 +494,7 @@ function init() {
       showGoMenu();
       hideScore();
       player.isDead = "lol";
-
+      window.inGame = false;
       //var tweet = document.getElementById("tweetBtn");
       //tweet.href='http://twitter.com/share?url=http://is.gd/PnFFzu&text=I just scored ' +score+ ' points in the HTML5 Doodle Jump game!&count=horiztonal&via=cssdeck&related=solitarydesigns';
     
@@ -528,6 +533,7 @@ function init() {
 }
 
 function reset() {
+  window.inGame = true;
   hideGoMenu();
   showScore();
   player.isDead = false;
