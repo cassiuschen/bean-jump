@@ -50,11 +50,10 @@ canvas {
   margin: 0;
 }
 #score-name {
-  font-size: 22px;
-  color: #ea3b3d;
-  line-height: 46px;
   display: inline-block;
+  height: 18px;
   margin: 0;
+  margin-left: 6px;
 }
 
 img {display: none}
