@@ -5,13 +5,22 @@ window.requestAnimFrame = (function() {
     window.setTimeout(callback, 1000 / 60);
   };
 })();
-
+window.inGame = false;
 //跳板声音
-var audio = document.getElementById("audio");
-var playSound = function() {
-  audio.play();
+function playSound(str) {
+  if(window.inGame){
+    var collection = document.getElementById('tmpAus');
+    //$(collection).children().remove();
+    var au = document.getElementById(str);
+    var tmpAu = au.cloneNode(true);
+    tmpAu.id = str + Math.random();
+    collection.appendChild(tmpAu);
+    tmpAu.play();
+    $(tmpAu).on('ended', function(){$(this).remove();});
+  }
 }
-
+var dropAu = document.getElementById('drop');
+//$(dropAu).on('ended', function(){$(this).remove();});
 var canvas = document.getElementById('canvas'),
   ctx = canvas.getContext('2d');
 
@@ -95,10 +104,12 @@ var Player = function() {
 
   this.jump = function() {
     this.vy = -8;
+    playSound("jump");
   };
 
   this.jumpHigh = function() {
     this.vy = -16;
+    playSound("jumpH");
   };
 
 };
@@ -158,9 +169,11 @@ function Platform() {
   //We can't have two consecutive breakable platforms otherwise it will be impossible to reach another platform sometimes!
   if (this.type == 3 && broken < 1) {
     broken++;
+    playSound("crash");
   } else if (this.type == 3 && broken >= 1) {
     this.type = 1;
     broken = 0;
+    
   }
 
   this.moved = 0;
@@ -246,8 +259,10 @@ function DeviceOrientationHandler(event){
 }
 window.addEventListener("deviceorientation", DeviceOrientationHandler, true);
 
+
 function init() {
   //Variables for the game
+  window.inGame = true;
   var dir = "left",
     jumpCount = 0;
   
@@ -441,12 +456,11 @@ function init() {
           return;
         } else if (p.type == 4 && p.state === 0) {
           player.jump();
-          playSound("souonds/jump.mp3");
           p.state = 1;
         } else if (p.flag == 1) return;
         else {
           player.jump();
-          playSound("souonds/jump.mp3");
+          
         }
       }
     });
@@ -466,6 +480,7 @@ function init() {
   }
 
   function gameOver() {
+    if (dropAu) dropAu.play();
     platforms.forEach(function(p, i) {
       p.y -= 12;
     });
@@ -479,12 +494,12 @@ function init() {
       showGoMenu();
       hideScore();
       player.isDead = "lol";
-
-      var tweet = document.getElementById("tweetBtn");
-      tweet.href='http://twitter.com/share?url=http://is.gd/PnFFzu&text=I just scored ' +score+ ' points in the HTML5 Doodle Jump game!&count=horiztonal&via=cssdeck&related=solitarydesigns';
+      window.inGame = false;
+      //var tweet = document.getElementById("tweetBtn");
+      //tweet.href='http://twitter.com/share?url=http://is.gd/PnFFzu&text=I just scored ' +score+ ' points in the HTML5 Doodle Jump game!&count=horiztonal&via=cssdeck&related=solitarydesigns';
     
-      var facebook = document.getElementById("fbBtn");
-      facebook.href='http://facebook.com/sharer.php?s=100&p[url]=http://cssdeck.com/labs/html5-doodle-jump/8&p[title]=I just scored ' +score+ ' points in the HTML5 Doodle Jump game!&p[summary]=Can you beat me in this awesome recreation of Doodle Jump created in HTML5?';
+      //var facebook = document.getElementById("fbBtn");
+      //facebook.href='http://facebook.com/sharer.php?s=100&p[url]=http://cssdeck.com/labs/html5-doodle-jump/8&p[title]=I just scored ' +score+ ' points in the HTML5 Doodle Jump game!&p[summary]=Can you beat me in this awesome recreation of Doodle Jump created in HTML5?';
 
     }
   }
@@ -518,6 +533,7 @@ function init() {
 }
 
 function reset() {
+  window.inGame = true;
   hideGoMenu();
   showScore();
   player.isDead = false;
@@ -550,7 +566,7 @@ function showGoMenu() {
   menu.style.visibility = "visible";
 
   var scoreText = document.getElementById("go_score");
-  scoreText.innerHTML = "You scored " + score + " points!";
+  scoreText.innerHTML = "哇！你得到了 " + score + " 分！";
 }
 
 //Hides the game over menu
@@ -591,26 +607,7 @@ function playerJump() {
     if (player.vy < -7 && player.vy > -15) player.dir = "right_land";
   }
 
-  function DeviceOrientationHandler(event){
-    player.isMovingRight = false;
-    player.isMovingLeft = false;
-    
-    gamma = event.gamma;
-    //$('#test').html(event.gamma.toSting() + " --- " + event.beta.toString());
-    if(gamma != null){
-      if( gamma > 0 ){
-        dir = "right";
-        player.isMovingRight = true;
-      } else if( gamma == 0) {
-        player.isMovingRight = false;
-        player.isMovingLeft = false;
-      } else{
-        dir = "left";
-        player.isMovingLeft = true;
-      }
-    }
-  }
-window.addEventListener("deviceorientation", DeviceOrientationHandler, true);
+  
   //Adding keyboard controls
   document.onkeydown = function(e) { 
     var key = e.keyCode;
@@ -648,18 +645,18 @@ window.addEventListener("deviceorientation", DeviceOrientationHandler, true);
   //Accelerations produces when the user hold the keys
   if (player.isMovingLeft === true) {
     player.x += player.vx;
-    player.vx -= 0.15;
+    player.vx = (gamma / 90) * 8 *2;
   } else {
     player.x += player.vx;
-    if (player.vx < 0) player.vx += 0.1;
+    if (player.vx < 0) player.vx = 8 * (gamma / 90) *2;
   }
 
   if (player.isMovingRight === true) {
     player.x += player.vx;
-    player.vx += 0.15;
+    player.vx = (gamma / 90) * 8 *2;
   } else {
     player.x += player.vx;
-    if (player.vx > 0) player.vx -= 0.1;
+    if (player.vx > 0) player.vx = 8 * (gamma / 90) *2;
   }
 
   //Jump the player when it hits the base

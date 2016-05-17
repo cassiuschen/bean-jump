@@ -76,6 +76,8 @@ img {display: none}
 .title {
   background-image: url(img/title.png);
   background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
   width: 54%;
   height: 200px;
   background-repeat: no-repeat;
@@ -85,10 +87,11 @@ img {display: none}
 }
 .sub-bg, .end-bg {
   background-image: url(img/block-bg.png);
-  background-size: cover;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
   width: 100%;
   height: 170px;
-  padding-top: 30px;
 }
 .sub {
   background-image: url(img/sub.png);
@@ -98,23 +101,21 @@ img {display: none}
   width: 70%;
   height: 100%;
   background-repeat: no-repeat;
-  background-position: 0 0;
+  background-position: center;
   margin: 0 auto;
 }
 
 .end-win {
   background-image: url(img/succeed.png);
-  padding-top: 40px;
-  padding-bottom: 40px;
   background-size: contain;
   width: 70%;
   height: 100%;
   background-repeat: no-repeat;
-  background-position: 0 0;
+  background-position: center;
   margin: 0 auto;
 }
 .button {
-  height: 70px;
+  height: 40px;
   background-position: 50% 50%;
   background-repeat: no-repeat;
   background-size: contain;
@@ -131,19 +132,19 @@ img {display: none}
 .button.restart {
   background-image: url(img/btn-restart.png);
   width: 60%;
-  bottom: 16%;
+  bottom: 21%;
   margin-left: -30%;
 }
 .button.story {
   background-image: url(img/btn-story.png);
   width: 40%;
-  bottom: 11%;
+  bottom: 14%;
   margin-left: -20%;
 }
 .button.rank {
   background-image: url(img/btn-rank.png);
   width: 30%;
-  bottom: 6%;
+  bottom: 7%;
   margin-left: -15%;
 }
 .button.share {
@@ -156,20 +157,48 @@ img {display: none}
 #gameOverMenu h1 {
   color: #895c22;
   font-size: 22px;
+  padding-top: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 1;
 }
 
 #gameOverMenu h3 {
   color: #895c22;
   font-size: 22px;
+  line-height: 2;
 }
 
-.share-page, .rank-page {
-  width: 1000vw;
+.share-page, .rank-page, .story-page {
+  width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, .73);
+  background-image: url(img/bg.jpg);
   position: fixed;
   z-index: 99;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
+.bg {
+  width: 100%;
+  height: 100%;
+  background-image: url(img/bg-white.png);
+  overflow: scroll;
+  padding: 40px 0;
+  background-size: cover;
+
+}
+
+img.story, img.rank {
+  display: block;
+  width: 80%;
+  margin-top: 40px;
+  height: auto;
+  margin: 0 auto;
+}
+img.story {
+  margin-top: 30px;
+}
+
 
 .arrow {
   width: 18%;
@@ -196,11 +225,3 @@ img {display: none}
   display: block;
   margin: 0 auto;
 }
-
-.rank-page img {
-  width: 90%;
-  height: auto;
-  display: block;
-  margin: 0 auto;
-}
-
