@@ -8,16 +8,16 @@ window.requestAnimFrame = (function() {
 window.inGame = false;
 //跳板声音
 function playSound(str) {
-  if(window.inGame){
-    var collection = document.getElementById('tmpAus');
+  //if(window.inGame){
+  //  var collection = document.getElementById('tmpAus');
     //$(collection).children().remove();
-    var au = document.getElementById(str);
-    var tmpAu = au.cloneNode(true);
-    tmpAu.id = str + Math.random();
-    collection.appendChild(tmpAu);
-    tmpAu.play();
-    $(tmpAu).on('ended', function(){$(this).remove();});
-  }
+  //  var au = document.getElementById(str);
+  //  var tmpAu = au.cloneNode(true);
+  //  tmpAu.id = str + Math.random();
+  //  collection.appendChild(tmpAu);
+  //  tmpAu.play();
+  //  $(tmpAu).on('ended', function(){$(this).remove();});
+  //}
 }
 var dropAu = document.getElementById('drop');
 //$(dropAu).on('ended', function(){$(this).remove();});
