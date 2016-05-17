@@ -8,7 +8,7 @@ window.requestAnimFrame = (function() {
 
 //跳板声音
 var audio = document.getElementById("audio");
-var playSound = function(sound_src) {
+var playSound = function() {
   audio.play();
 }
 
